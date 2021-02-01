@@ -1,0 +1,23 @@
+name: renue-fns
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: node
+        uses: actions/setup-node@v1
+        with:
+          node-version: 15.x
+      - name: 'npm:install'
+        run: npm install
+      - name: test
+        run: npm test
+      - uses: actions/upload-artifact@v2
+        with:
+          name: screenshots
+          path: screens/*.png

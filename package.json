@@ -1,0 +1,48 @@
+{
+  "author": "knight",
+  "dependencies": {
+    "chromedriver": "87.0.7",
+    "jest": "26.6.3",
+    "playwright": "1.8.0"
+  },
+  "description": "Renue tets with Jest and Expect.",
+  "devDependencies": {
+    "eslint": "7.19.0",
+    "eslint-config-airbnb-base": "14.2.1",
+    "eslint-config-prettier": "6.15.0",
+    "eslint-plugin-import": "2.22.1",
+    "eslint-plugin-prettier": "3.3.1",
+    "husky": "4.3.8",
+    "lint-staged": "10.5.3",
+    "prettier": "2.2.1",
+    "pretty-quick": "3.1.0"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged --allow-empty"
+    }
+  },
+  "keywords": [
+    "expect",
+    "jest",
+    "playwright",
+    "integration test",
+    "test automation",
+    "javascript"
+  ],
+  "license": "MIT",
+  "lint-staged": {
+    "*.{js}": [
+      "eslint --fix",
+      "prettier --write"
+    ]
+  },
+  "name": "renue-test",
+  "repository": {
+  },
+  "scripts": {
+    "lint": "npx eslint --ext .js ./ --fix",
+    "test": "jest -w=1 --detectOpenHandles"
+  },
+  "version": "1.0.0"
+}
