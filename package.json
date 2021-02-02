@@ -1,11 +1,11 @@
 {
-  "author": "knight",
+  "author": "Alexander Prodan",
   "dependencies": {
     "chromedriver": "87.0.7",
     "jest": "26.6.3",
     "playwright": "1.8.0"
   },
-  "description": "Renue tets with Jest and Expect.",
+  "description": "Renue test with Jest and Expect.",
   "devDependencies": {
     "eslint": "7.19.0",
     "eslint-config-airbnb-base": "14.2.1",

@@ -5,7 +5,7 @@ describe('Login page', () => {
   test('should display correct header after login', async () => {
     for (const browserType of ['chromium', 'firefox', 'webkit']) {
       const browser = await playwright[browserType].launch({
-        headless: false, slowMo: 500
+        headless: false
       })
       const context = await browser.newContext({
         viewport: { width: 1920, height: 1080 }

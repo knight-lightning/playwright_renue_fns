@@ -8,7 +8,7 @@ class LoginPage {
     async login() {
         // Логин + пароль
         await this.page.fill('#username', 'pra@crtweb.ru')
-        await this.page.fill('#password', 'A*bcd124')
+        await this.page.fill('#password', 'A%*bcd124')
         await this.page.click('button.ant-btn')
     }
   }

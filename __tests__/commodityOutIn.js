@@ -4,7 +4,7 @@ const { LoginPage } = require('../models/Login');
 // Вывывод товара из оборота + ввод
 describe('Out and In commodity from turnover', () => {
     test('should display correct status of commodity', async () => {
-        for (const browserType of ['chromium', 'firefox', 'webkit']) {
+        for (const browserType of ['chromium']) {
             const browser = await playwright[browserType].launch({
                 headless: false, slowMo: 500
             })

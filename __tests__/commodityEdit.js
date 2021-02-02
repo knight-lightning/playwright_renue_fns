@@ -23,7 +23,7 @@ describe('Editing a commodity', () => {
     test('Name of commodity must be new', async () => {
         for (const browserType of ['chromium']) {
             const browser = await playwright[browserType].launch({
-                headless: false, slowMo: 500
+                headless: false
             })
             const context = await browser.newContext({
                 viewport: { width: 1920, height: 1080 }
@@ -34,27 +34,27 @@ describe('Editing a commodity', () => {
             await loginPage.navigate();
             await loginPage.login()
 
-            // Заходим в товар
+            // Заходим в товар, кликаем кнопку Изменить
             await page.click('//html/body/div[1]/div/section/section/main/div/div[2]/div[2]/div/div/div/div/div[2]/table/tbody/tr[2]')
             await page.click('text="Изменить"')
 
             const generateFromName = generateName()
-            await page.fill('#name', generateFromName) // Название товара
+            await page.fill('//html/body/div/div/section/section/main/div/div[2]/form/div[1]/div[2]/div/div/div/div/input', generateFromName) // Название товара
 
-            await page.click('#okpd2Code') //ОКПД2
+            await page.click('//html/body/div/div/section/section/main/div/div[2]/form/div[2]/div[2]/div/div/div/div') //ОКПД2
             await page.fill('//html/body/div[2]/div/div[2]/div/div[2]/div[2]/div[1]/form/span/input', '1')
             await page.click('//html/body/div[2]/div/div[2]/div/div[2]/div[2]/div[2]/ul/li[1]/span[2]')
 
-            await page.click('#tnvedCode') //ТНВЭД
+            await page.click('//html/body/div/div/section/section/main/div/div[2]/form/div[3]/div[2]/div/div/div/div') //ТНВЭД
             await page.fill('//html/body/div[2]/div/div[2]/div/div[2]/div[2]/div[1]/form/span/input', '1')
             await page.click('//html/body/div[2]/div/div[2]/div/div[2]/div[2]/div[2]/ul/li[1]/span[2]')
 
-            await page.fill('#description', generateName())
+            await page.fill('textarea', generateName())
 
-            await page.fill('#quantity', '10')
+            await page.fill('.ant-input-number-input-wrap input', '10')
 
-            await page.click('//html/body/div[1]/div/section/section/main/div/div[2]/form/div[6]/div[2]/div/div/div/div')
-            await page.click('text="Ватт"')
+            await page.click('//html/body/div/div/section/section/main/div/div[2]/form/div[6]/div[2]/div/div/div/div/div[1]/span/input')
+            await page.click('text="Мегаватт"')
 
             await page.click('text="Сохранить изменения"')
 
