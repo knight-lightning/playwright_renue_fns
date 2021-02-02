@@ -12,9 +12,9 @@ describe('Out and In commodity from turnover', () => {
                 viewport: { width: 1920, height: 1080 }
             })
             const page = await context.newPage()
-            const loginPage = new LoginPage(page);
+            const loginPage = new LoginPage(page)
 
-            await loginPage.navigate();
+            await loginPage.navigate()
             await loginPage.login()
 
             // Заходим в товар
