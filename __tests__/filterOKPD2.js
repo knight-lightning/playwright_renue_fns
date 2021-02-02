@@ -6,7 +6,7 @@ describe('fillterOKPD2', () => {
   test('should display correct filltered table', async () => {
     for (const browserType of ['chromium']) {
       const browser = await playwright[browserType].launch({
-        headless: false, slowMo: 300
+        headless: false, slowMo: 500
       })
       const context = await browser.newContext({
         viewport: { width: 1920, height: 1080 }
