@@ -21,7 +21,7 @@ function generateName() {
 
 describe('Editing a commodity', () => {
     test('Name of commodity must be new', async () => {
-        for (const browserType of ['chromium', 'firefox', 'webkit']) {
+        for (const browserType of ['chromium']) {
             const browser = await playwright[browserType].launch({
                 headless: false, slowMo: 500
             })

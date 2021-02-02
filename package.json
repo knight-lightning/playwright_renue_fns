@@ -42,7 +42,7 @@
   },
   "scripts": {
     "lint": "npx eslint --ext .js ./ --fix",
-    "test": "jest -w=1 --detectOpenHandles"
+    "test": "jest -w=1 --detectOpenHandles --forceExit"
   },
   "version": "1.0.0"
 }
