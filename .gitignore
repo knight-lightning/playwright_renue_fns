@@ -1,5 +1,7 @@
 .png
 screens/
+allure-results/
+
 # Logs
 logs
 *.log

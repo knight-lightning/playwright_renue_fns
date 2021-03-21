@@ -1,0 +1,66 @@
+pipeline {
+    environment {
+        registry = "repo.renue.ru"
+        registryCredential = 'jenkinsDocker'
+        fullPath = ''
+    }
+    agent { label 'fns-codifier-prod' }
+    options {
+        buildDiscarder logRotator(artifactDaysToKeepStr: '20', artifactNumToKeepStr: '20', daysToKeepStr: '30', numToKeepStr: '10')
+    }
+    parameters {
+        booleanParam defaultValue: true, description: 'BUILD IMAGE?', name: 'BUILD_IMAGE'
+    }
+	stages {
+        stage('Set vars') {
+            steps {
+                script {
+                    fullPath = sh(script: "pwd", returnStdout: true).trim()
+                }
+            }
+        }
+        stage('Build image') {
+			when {
+				expression {
+					return params.BUILD_IMAGE
+				}
+			}
+			steps {
+                script {
+                    def Img = docker.build("fns/codifier-ui-autotests")
+                    docker.withRegistry("https://${registry}", registryCredential) {
+                        Img.push("1.0")
+                    }
+
+                }
+            }
+        }
+		stage('Run tests') {
+			agent {
+			        docker {
+			                    image 'repo.renue.ru/fns/codifier-ui-autotests:1.0'
+			                    label 'fns-codifier-prod'
+			                    args "-u root:root -v ${fullPath}/allure-results:/tests/allure-results"
+			                }
+			}
+			steps {
+			    script{
+			        sh """
+			            cd /tests
+			            npm install
+			            xvfb-run npm test || allure generate -c
+			        """
+			    }
+
+			}
+		}
+
+	}
+    post {
+        always {
+            script {
+                allure([includeProperties: false, jdk: '', properties: [], reportBuildPolicy: 'ALWAYS', results: [[path: 'allure-results']]])
+            }
+        }
+    }
+}

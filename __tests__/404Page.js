@@ -1,13 +1,11 @@
 const { chromium, firefox, webkit } = require('playwright')
 const { LoginPage } = require('../models/Login')
-const { CommodityPage } = require('../models/Commodity')
-const { generateName } = require('../models/generateRandomName')
 const globalVars = require('../models/globalVars')
+const baseurl = globalVars.baseurl
 const headfullBrowserState = globalVars.browserState
 const browserName = process.env.BROWSER || globalVars.browser // chromium, firefox, webkit
 
-// Создаём новый товар
-describe('Создание товара', () => {
+describe('Проверка 404 страницы', () => {
     let browser
     let context
     let page
@@ -35,27 +33,20 @@ describe('Создание товара', () => {
     beforeEach(() => {
         reporter
             .epic('E2E test')
-            .feature('Добавление нового товара')
+            .feature('404 check page')
             .severity('Normal')
-            .description('Добавление нового товара')
+            .description('Тест редиректа на 404 страницу')
     })
 
-    it('должен создаться товар с указанным именем', async () => {
-        // Создаём новый товар
-        const commodityPage = new CommodityPage(page)
-        await commodityPage.navigate()
-        let generateFromName = generateName()
-        await commodityPage.fillInCommodity(generateFromName)
+    test('должна отображаться страница 404 после редиректа', async () => {
+        // Проверяем заголовок
+        await page.waitForNavigation()
+        await page.goto(baseurl + '/#/nomen2')
 
-        await page.click('//button[@type="submit"]')
+        const content = await page.textContent('"404"')
+        expect(content).toBe('404')
 
-        await page.waitForTimeout(1000)
-
-        // Проверяем, что создался товар
-        const content = await page.textContent('//tbody/tr[2]/td[3]')
-        expect(content).toBe(generateFromName)
-
-        let screen = await page.screenshot({ path: `screens/${today}-createCommodity-${browserName}.png` })
+        let screen = await page.screenshot({ path: `screens/${today}-404Page-${browserName}.png` })
         reporter.addAttachment("Screenshot", screen, "image/png")
     })
 })
