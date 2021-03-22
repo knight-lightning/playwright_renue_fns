@@ -54,7 +54,7 @@ describe('Восстановление пароля', () => {
         await page1.fill('input[aria-label="Email or phone"]', 'denivanovr@gmail.com')
         // await page1.fill('input[aria-label="Телефон или адрес эл. почты"]', 'denivanovr@gmail.com')
         await page1.click('//button[normalize-space(.)=\'Next\']/div[2]')
-        // Пароль
+        // Пароль1
         await page1.fill('//*[@id="password"]/div[1]/div/div[1]/input', '*ExK5%EI')
         await page1.click('//button[normalize-space(.)=\'Next\']/div[2]')
 
