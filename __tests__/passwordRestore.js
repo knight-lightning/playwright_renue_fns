@@ -43,35 +43,25 @@ describe('Восстановление пароля', () => {
         await loginPage.navigate()
 
         // Вводим почту
-        await page.fill('input[placeholder="Ваша почта"]', 'denivanovr@gmail.com')
+        await page.fill('input[placeholder="Ваша почта"]', 'denivanovr@yandex.ru')
         await page.click('text="Забыли пароль?"')
 
         // Открываем новую страницу, логинимся в gmail
         const page1 = await context.newPage()
-        await page1.goto('https://gmail.com')
+        await page1.goto('https://mail.yandex.ru/')
+        await page1.waitForTimeout(500)
         // Имя почты
-        let screen = await page.screenshot({ path: `screens/${today}-restorePassword1-${browserName}.png` })
-        await page1.fill('input[aria-label="Email or phone"]', 'denivanovr@gmail.com')
-        // await page1.fill('input[aria-label="Телефон или адрес эл. почты"]', 'denivanovr@gmail.com')
-        await page1.click('//button[normalize-space(.)=\'Next\']/div[2]')
-        // Пароль1
-        await page1.fill('//*[@id="password"]/div[1]/div/div[1]/input', '*ExK5%EI')
-        await page1.click('//button[normalize-space(.)=\'Next\']/div[2]')
+        await page1.click('a:has-text("Войти")')
+        await page1.waitForSelector('input[name="login"]')
+        await page1.fill('input[name="login"]', 'denivanovr')
+        await page1.click('button:has-text("Войти")')
+        await page1.waitForSelector('input[name="passwd"]')
+        await page1.fill('input[name="passwd"]', '*ExK5%EI')
+        await page1.click('button:has-text("Войти")')
 
-        // Ждём загрузки ящика и прихода письма на восстановление, если тест падает, скорей всего нужно увеличить время ожидания
-        await page.waitForTimeout(500)
+        await page1.click('text=Восстановление доступа к Кодификатору ФНС России')
 
-        screen = await page.screenshot({ path: `screens/${today}-restorePassword2-${browserName}.png` })
-        reporter.addAttachment("Screenshot1", screen, "image/png")
-        // Ящик заходим в письмо (срабатывает только через выполнение js кода на странице, переход по xpath, selector, text ничего не даёт), копируем ссылку
-        // await page1.dispatchEvent('div div div div div div div div div div div div div div div div div div div div table tbody tr', 'click')
-        // await page1.evaluate(() =>
-        //     document.querySelector("div div div div div div div div div div div div div div div div div div div div table tbody tr").click()
-        // )
-        await page1.click('div div div div div div div div div div div div div div div div div div div div table tbody tr')
-
-        const passLink = await page1.textContent('//html/body/div[7]/div[3]/div/div[2]/div[1]/div[2]/div/div/div/div/div[2]/div/div[1]/div/div[2]/div/table/tr/td[1]/div[2]/div[2]/div/div[3]/div/div/div/div/div/div[1]/div[2]/div[3]/div[3]/div[1]/a')
-
+        const passLink = await page1.textContent('text=Здравствуйте!От вас поступил запрос на восстановление доступа к системе Кодифика >> a')
         await page1.close()
         await page.goto(passLink)
 
