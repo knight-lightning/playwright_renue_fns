@@ -53,7 +53,6 @@ describe('Восстановление пароля', () => {
         // Открываем новую страницу, логинимся в gmail
         const page1 = await context.newPage()
         await page1.goto('https://mail.yandex.ru/')
-        await page1.waitForTimeout(500)
         // Имя почты
         await page1.click('a:has-text("Войти")')
         await page1.waitForSelector('input[name="login"]')
@@ -62,7 +61,6 @@ describe('Восстановление пароля', () => {
         await page1.waitForSelector('input[name="passwd"]')
         await page1.fill('input[name="passwd"]', '*ExK5%EI')
         await page1.click('button:has-text("Войти")')
-        await page1.waitForTimeout(1000)
         await page1.click('text=Восстановление доступа к Кодификатору ФНС России')
 
         const passLink = await page1.textContent('text=Здравствуйте!От вас поступил запрос на восстановление доступа к системе Кодифика >> a')
