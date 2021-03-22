@@ -52,15 +52,15 @@ describe('Восстановление пароля', () => {
         await page1.waitForTimeout(500)
         // Имя почты
         await page1.click('a:has-text("Войти")')
-        await page1.waitForTimeout(300)
+        await page1.waitForTimeout(1000)
         await page1.waitForSelector('input[name="login"]')
         await page1.fill('input[name="login"]', 'denivanovr')
         await page1.click('button:has-text("Войти")')
-        await page1.waitForTimeout(300)
+        await page1.waitForTimeout(1000)
         await page1.waitForSelector('input[name="passwd"]')
         await page1.fill('input[name="passwd"]', '*ExK5%EI')
         await page1.click('button:has-text("Войти")')
-
+        await page1.waitForTimeout(2000)
         await page1.click('text=Восстановление доступа к Кодификатору ФНС России')
 
         const passLink = await page1.textContent('text=Здравствуйте!От вас поступил запрос на восстановление доступа к системе Кодифика >> a')
