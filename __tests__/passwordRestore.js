@@ -15,7 +15,7 @@ describe('Восстановление пароля', () => {
         browser = await { chromium, webkit, firefox }[browserName].launch({
             headless: false,
             args: ['--disable-dev-shm-usage'],
-            slowMo: 300
+            slowMo: 800
         })
         context = await browser.newContext({
             viewport: { width: 1920, height: 1080 },
