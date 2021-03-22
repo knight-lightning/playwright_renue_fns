@@ -18,6 +18,9 @@ jobs:
       - name: test
         run: npm test
       - uses: actions/upload-artifact@v2
+        if: failure()
         with:
           name: screenshots
-          path: screens/
+          path: |
+            screens/
+            videos/
