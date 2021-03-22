@@ -20,7 +20,6 @@ describe('Восстановление пароля', () => {
         context = await browser.newContext({
             viewport: { width: 1920, height: 1080 },
             recordVideo: { dir: 'videos/', size: { width: 1920, height: 1080 } },
-            locale: 'ru-RU',
             timezoneId: 'Europe/Moscow',
             geolocation: { longitude: 51.638718, latitude: 36.135694 },
             permissions: ['geolocation']
