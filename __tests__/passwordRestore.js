@@ -14,12 +14,16 @@ describe('Восстановление пароля', () => {
     beforeAll(async () => {
         browser = await { chromium, webkit, firefox }[browserName].launch({
             headless: false,
-            args: ['--disable-dev-shm-usage']
+            args: ['--disable-dev-shm-usage'],
+            slowMo: 300
         })
         context = await browser.newContext({
             viewport: { width: 1920, height: 1080 },
-            recordVideo: { dir: 'videos/', size: { width: 1920, height: 1080 } }
-
+            recordVideo: { dir: 'videos/', size: { width: 1920, height: 1080 } },
+            locale: 'ru-RU',
+            timezoneId: 'Europe/Moscow',
+            geolocation: { longitude: 51.638718, latitude: 36.135694 },
+            permissions: ['geolocation']
         })
         page = await context.newPage()
     })
@@ -34,7 +38,7 @@ describe('Восстановление пароля', () => {
             .epic('E2E test')
             .feature('Восстановление пароля')
             .severity('Normal')
-            .description('Восстановление пароля аккаунта через mail')
+            .description('Восстановление пароля аккаунта через почту')
     })
 
 
@@ -52,15 +56,13 @@ describe('Восстановление пароля', () => {
         await page1.waitForTimeout(500)
         // Имя почты
         await page1.click('a:has-text("Войти")')
-        await page1.waitForTimeout(1000)
         await page1.waitForSelector('input[name="login"]')
         await page1.fill('input[name="login"]', 'denivanovr')
         await page1.click('button:has-text("Войти")')
-        await page1.waitForTimeout(1000)
         await page1.waitForSelector('input[name="passwd"]')
         await page1.fill('input[name="passwd"]', '*ExK5%EI')
         await page1.click('button:has-text("Войти")')
-        await page1.waitForTimeout(2000)
+        await page1.waitForTimeout(1000)
         await page1.click('text=Восстановление доступа к Кодификатору ФНС России')
 
         const passLink = await page1.textContent('text=Здравствуйте!От вас поступил запрос на восстановление доступа к системе Кодифика >> a')
