@@ -55,8 +55,10 @@ describe('Восстановление пароля', () => {
         // Имя почты
         await page1.click('a:has-text("Войти")')
         await page1.waitForSelector('input[name="login"]')
+        await page1.waitForTimeout(500)
         await page1.fill('input[name="login"]', 'denivanovr')
         await page1.click('button:has-text("Войти")')
+        await page.waitForTimeout(500)
         await page1.waitForSelector('input[name="passwd"]')
         await page1.fill('input[name="passwd"]', '*ExK5%EI')
         await page1.click('button:has-text("Войти")')
