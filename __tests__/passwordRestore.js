@@ -61,7 +61,7 @@ describe('Восстановление пароля', () => {
         // Ждём загрузки ящика и прихода письма на восстановление, если тест падает, скорей всего нужно увеличить время ожидания
         await page.waitForTimeout(500)
 
-        let screen = await page.screenshot({ path: `screens/${today}-restorePassword2-${browserName}.png` })
+        screen = await page.screenshot({ path: `screens/${today}-restorePassword2-${browserName}.png` })
         reporter.addAttachment("Screenshot1", screen, "image/png")
         // Ящик заходим в письмо (срабатывает только через выполнение js кода на странице, переход по xpath, selector, text ничего не даёт), копируем ссылку
         // await page1.dispatchEvent('div div div div div div div div div div div div div div div div div div div div table tbody tr', 'click')
