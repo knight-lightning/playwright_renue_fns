@@ -51,12 +51,12 @@ describe('Восстановление пароля', () => {
         await page1.goto('https://gmail.com')
         // Имя почты
         let screen = await page.screenshot({ path: `screens/${today}-restorePassword1-${browserName}.png` })
-        await page1.fill(':is(input[aria-label="Телефон или адрес эл. почты"], input[aria-label="Email or phone"]', 'denivanovr@gmail.com')
+        await page1.fill('input[aria-label="Email or phone"]', 'denivanovr@gmail.com')
         // await page1.fill('input[aria-label="Телефон или адрес эл. почты"]', 'denivanovr@gmail.com')
-        await page1.click('//button[normalize-space(.)=\'Далее\']/div[2]')
+        await page1.click('//button[normalize-space(.)=\'Next\']/div[2]')
         // Пароль
         await page1.fill('//*[@id="password"]/div[1]/div/div[1]/input', '*ExK5%EI')
-        await page1.click('//button[normalize-space(.)=\'Далее\']/div[2]')
+        await page1.click('//button[normalize-space(.)=\'Next\']/div[2]')
 
         // Ждём загрузки ящика и прихода письма на восстановление, если тест падает, скорей всего нужно увеличить время ожидания
         await page.waitForTimeout(500)
